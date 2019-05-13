@@ -11,6 +11,10 @@ class ItemViewModel : ViewModel() {
     var itemPagedList: LiveData<PagedList<Item>>
     var liveDataSource: LiveData<PageKeyedDataSource<Int, Item>>
 
+    var refresh : (() -> Unit)
+
+
+
     init {
         val itemDataSourceFactory = ItemDataSourceFactory()
         liveDataSource = itemDataSourceFactory.itemLiveDataSource
@@ -21,5 +25,12 @@ class ItemViewModel : ViewModel() {
                 .build()
 
         itemPagedList = LivePagedListBuilder(itemDataSourceFactory, config).build()
+
+        var refreshl : () -> Unit = {
+            itemDataSourceFactory.itemLiveDataSource.value?.invalidate()
+        }
+
+        refresh = refreshl
+
     }
 }

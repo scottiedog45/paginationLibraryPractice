@@ -13,6 +13,8 @@ class ItemDataSource : PageKeyedDataSource<Int, Item>() {
 
         println("FIRING LOAD INITIAL")
 
+
+
         RetrofitClient.insance!!
                 .api
                 .getAnswers(FIRST_PAGE, PAGE_SIZE, SITE_NAME)
@@ -20,6 +22,8 @@ class ItemDataSource : PageKeyedDataSource<Int, Item>() {
                     override fun onResponse(call: Call<StackApiResponse>, response: Response<StackApiResponse>) {
 
                         if (response.body() != null) {
+
+                            println("FIRST PAGE: $FIRST_PAGE")
 
                             callback.onResult(response.body()!!.items!!.toMutableList(), null, FIRST_PAGE + 1)
 
@@ -47,6 +51,7 @@ class ItemDataSource : PageKeyedDataSource<Int, Item>() {
 
                         if (response.body() != null) {
                             val key = if (params.key > 1) params.key - 1 else null
+
                             callback.onResult(response.body()!!.items!!.toMutableList(), key)
                         }
                     }
@@ -67,7 +72,7 @@ class ItemDataSource : PageKeyedDataSource<Int, Item>() {
                 .getAnswers(params.key, PAGE_SIZE, SITE_NAME)
                 .enqueue(object : Callback<StackApiResponse> {
                     override fun onResponse(call: Call<StackApiResponse>, response: Response<StackApiResponse>) {
-
+                        println("on page... ${params.key}")
                         if (response.body() != null) {
                             val key = if (response.body()!!.has_more) params.key + 1 else null
                             callback.onResult(response.body()!!.items!!.toMutableList(), key)

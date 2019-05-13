@@ -12,6 +12,8 @@ import android.widget.Toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
+import kotlin.concurrent.schedule
 
 
 class MainActivity : AppCompatActivity() {
@@ -38,5 +40,10 @@ class MainActivity : AppCompatActivity() {
         val itemViewModel = ViewModelProviders.of(this).get<ItemViewModel>(ItemViewModel::class.java)
 
         itemViewModel.itemPagedList.observe(this, Observer { items -> adapter.submitList(items) })
+
+
+        Timer("SettingUp", false).schedule(5000) {
+            itemViewModel.refresh?.invoke()
+        }
     }
 }
