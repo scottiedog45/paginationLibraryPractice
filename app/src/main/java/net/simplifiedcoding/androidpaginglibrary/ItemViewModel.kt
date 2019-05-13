@@ -17,6 +17,7 @@ class ItemViewModel : ViewModel() {
 
     init {
         val itemDataSourceFactory = ItemDataSourceFactory()
+
         liveDataSource = itemDataSourceFactory.itemLiveDataSource
 
         val config = PagedList.Config.Builder()

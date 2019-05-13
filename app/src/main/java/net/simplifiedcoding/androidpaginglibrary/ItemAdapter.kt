@@ -35,7 +35,6 @@ class ItemAdapter constructor(private val mCtx: Context) : PagedListAdapter<Item
         } else {
             Toast.makeText(mCtx, "Item is null", Toast.LENGTH_LONG).show()
         }
-
     }
 
 
