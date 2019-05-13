@@ -8,11 +8,10 @@ import android.arch.paging.PagedList
 
 class ItemViewModel : ViewModel() {
 
-    internal var itemPagedList: LiveData<PagedList<Item>>
-    internal var liveDataSource: LiveData<PageKeyedDataSource<Int, Item>>
+    var itemPagedList: LiveData<PagedList<Item>>
+    var liveDataSource: LiveData<PageKeyedDataSource<Int, Item>>
 
     init {
-
         val itemDataSourceFactory = ItemDataSourceFactory()
         liveDataSource = itemDataSourceFactory.itemLiveDataSource
 
@@ -22,6 +21,5 @@ class ItemViewModel : ViewModel() {
                 .build()
 
         itemPagedList = LivePagedListBuilder(itemDataSourceFactory, config).build()
-
     }
 }

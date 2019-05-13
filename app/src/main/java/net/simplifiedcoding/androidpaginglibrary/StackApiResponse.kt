@@ -2,7 +2,7 @@ package net.simplifiedcoding.androidpaginglibrary
 
 import com.google.gson.annotations.SerializedName
 
-internal class Owner {
+class Owner {
     var reputation: Int = 0
     var user_id: Long = 0
     var user_type: String? = null
@@ -12,7 +12,7 @@ internal class Owner {
     var link: String? = null
 }
 
-internal class Item {
+class Item {
     var owner: Owner? = null
     var is_accepted: Boolean = false
     var score: Int = 0

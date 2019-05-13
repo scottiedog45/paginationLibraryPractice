@@ -22,8 +22,8 @@ class RetrofitClient private constructor() {
         private val BASE_URL = "https://api.stackexchange.com/2.2/"
         private var mInstance: RetrofitClient? = null
 
-        val insance: RetrofitClient
-            @Synchronized get() {
+        val insance: RetrofitClient?
+           get() {
                 if (mInstance == null) {
                     mInstance = RetrofitClient()
                 }

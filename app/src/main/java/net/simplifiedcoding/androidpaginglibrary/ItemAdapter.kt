@@ -13,7 +13,7 @@ import android.widget.Toast
 
 import com.bumptech.glide.Glide
 
-class ItemAdapter protected constructor(private val mCtx: Context) : PagedListAdapter<Item, ItemAdapter.ItemViewHolder>(DIFF_CALLBACK) {
+class ItemAdapter constructor(private val mCtx: Context) : PagedListAdapter<Item, ItemAdapter.ItemViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val view = LayoutInflater.from(mCtx).inflate(R.layout.recyclerview_item, parent, false)
@@ -27,10 +27,10 @@ class ItemAdapter protected constructor(private val mCtx: Context) : PagedListAd
         if (item != null) {
 
             Glide.with(mCtx)
-                    .load(item.owner.profile_image)
+                    .load(item.owner?.profile_image)
                     .into(holder.imageView)
 
-            holder.textView.text = item.owner.display_name
+            holder.textView.text = item.owner?.display_name
 
         } else {
             Toast.makeText(mCtx, "Item is null", Toast.LENGTH_LONG).show()
@@ -39,13 +39,12 @@ class ItemAdapter protected constructor(private val mCtx: Context) : PagedListAd
     }
 
 
-    internal inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         var imageView: ImageView
         var textView: TextView
 
         init {
-
             imageView = itemView.findViewById(R.id.imageView)
             textView = itemView.findViewById(R.id.textViewName)
         }

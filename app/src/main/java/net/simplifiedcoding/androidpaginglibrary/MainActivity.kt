@@ -22,19 +22,21 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //
+        //basic layout setup
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView!!.layoutManager = LinearLayoutManager(this)
+
+        //need to make a property here because it's used in setting the adapter for the recycler view and also for
+        //the item view model to observe it
+        val adapter = ItemAdapter(this)
+        recyclerView!!.adapter = adapter
 
         //means adapter content changes don't change the recycler view
         recyclerView!!.setHasFixedSize(true)
 
 
-        val itemViewModel = ViewModelProviders.of(this).get<ItemViewModel>(ItemViewModel::class.java!!)
-        val adapter = ItemAdapter(this)
+        val itemViewModel = ViewModelProviders.of(this).get<ItemViewModel>(ItemViewModel::class.java)
 
         itemViewModel.itemPagedList.observe(this, Observer { items -> adapter.submitList(items) })
-
-        recyclerView!!.adapter = adapter
     }
 }

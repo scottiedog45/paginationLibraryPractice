@@ -11,7 +11,9 @@ class ItemDataSource : PageKeyedDataSource<Int, Item>() {
 
     override fun loadInitial(params: PageKeyedDataSource.LoadInitialParams<Int>, callback: PageKeyedDataSource.LoadInitialCallback<Int, Item>) {
 
-        RetrofitClient.getInsance()
+        println("FIRING LOAD INITIAL")
+
+        RetrofitClient.insance!!
                 .api
                 .getAnswers(FIRST_PAGE, PAGE_SIZE, SITE_NAME)
                 .enqueue(object : Callback<StackApiResponse> {
@@ -19,7 +21,7 @@ class ItemDataSource : PageKeyedDataSource<Int, Item>() {
 
                         if (response.body() != null) {
 
-                            callback.onResult(response.body()!!.items, null, FIRST_PAGE + 1)
+                            callback.onResult(response.body()!!.items!!.toMutableList(), null, FIRST_PAGE + 1)
 
                         }
 
@@ -34,7 +36,9 @@ class ItemDataSource : PageKeyedDataSource<Int, Item>() {
 
     override fun loadBefore(params: PageKeyedDataSource.LoadParams<Int>, callback: PageKeyedDataSource.LoadCallback<Int, Item>) {
 
-        RetrofitClient.getInsance()
+        println("FIRING LOAD BEFORE")
+
+        RetrofitClient.insance!!
                 .api
                 .getAnswers(params.key, PAGE_SIZE, SITE_NAME)
                 .enqueue(object : Callback<StackApiResponse> {
@@ -43,7 +47,7 @@ class ItemDataSource : PageKeyedDataSource<Int, Item>() {
 
                         if (response.body() != null) {
                             val key = if (params.key > 1) params.key - 1 else null
-                            callback.onResult(response.body()!!.items, key)
+                            callback.onResult(response.body()!!.items!!.toMutableList(), key)
                         }
                     }
 
@@ -56,7 +60,9 @@ class ItemDataSource : PageKeyedDataSource<Int, Item>() {
 
     override fun loadAfter(params: PageKeyedDataSource.LoadParams<Int>, callback: PageKeyedDataSource.LoadCallback<Int, Item>) {
 
-        RetrofitClient.getInsance()
+        println("FIRING LOAD AFTER")
+
+        RetrofitClient.insance!!
                 .api
                 .getAnswers(params.key, PAGE_SIZE, SITE_NAME)
                 .enqueue(object : Callback<StackApiResponse> {
@@ -64,7 +70,7 @@ class ItemDataSource : PageKeyedDataSource<Int, Item>() {
 
                         if (response.body() != null) {
                             val key = if (response.body()!!.has_more) params.key + 1 else null
-                            callback.onResult(response.body()!!.items, key)
+                            callback.onResult(response.body()!!.items!!.toMutableList(), key)
                         }
 
                     }
@@ -78,7 +84,6 @@ class ItemDataSource : PageKeyedDataSource<Int, Item>() {
     }
 
     companion object {
-
         val PAGE_SIZE = 50
         private val FIRST_PAGE = 1
         private val SITE_NAME = "stackoverflow"
