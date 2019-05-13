@@ -51,7 +51,6 @@ class ItemAdapter constructor(private val mCtx: Context) : PagedListAdapter<Item
 
     companion object {
 
-
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Item>() {
             override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {
                 return oldItem.answer_id == newItem.answer_id

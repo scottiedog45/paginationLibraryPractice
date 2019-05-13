@@ -3,6 +3,8 @@ package net.simplifiedcoding.androidpaginglibrary
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+
+
 class RetrofitClient private constructor() {
     private val retrofit: Retrofit
 
@@ -18,6 +20,8 @@ class RetrofitClient private constructor() {
     }
 
     companion object {
+        
+
 
         private val BASE_URL = "https://api.stackexchange.com/2.2/"
         private var mInstance: RetrofitClient? = null
